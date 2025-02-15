@@ -102,9 +102,13 @@
       transition: background 0.3s, transform 0.3s;
       box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
     }
-    .vote-btn:hover {
+    .vote-btn:hover:not(:disabled) {
       background: var(--button-hover);
       transform: scale(1.05);
+    }
+    .vote-btn:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
     }
     .note {
       margin-top: 20px;
@@ -164,12 +168,12 @@
           <td>Match 1</td>
           <td>
             SyedXRuok 
-            <button class="vote-btn" onclick="voteForPlayer('SyedXRuok')">Vote</button>
+            <button id="voteBtn_SyedXRuok" class="vote-btn" onclick="voteForPlayer('SyedXRuok')">Vote</button>
           </td>
           <td><span id="votes_SyedXRuok">0</span></td>
           <td>
             Bilal 
-            <button class="vote-btn" onclick="voteForPlayer('Bilal')">Vote</button>
+            <button id="voteBtn_Bilal" class="vote-btn" onclick="voteForPlayer('Bilal')">Vote</button>
           </td>
           <td><span id="votes_Bilal">0</span></td>
           <td>9:00 - 9:17</td>
@@ -179,12 +183,12 @@
           <td>Match 2</td>
           <td>
             X Ruok.77 
-            <button class="vote-btn" onclick="voteForPlayer('X Ruok.77')">Vote</button>
+            <button id="voteBtn_X_Ruok_77" class="vote-btn" onclick="voteForPlayer('X Ruok.77')">Vote</button>
           </td>
           <td><span id="votes_X_Ruok_77">0</span></td>
           <td>
             Agent FF 
-            <button class="vote-btn" onclick="voteForPlayer('Agent FF')">Vote</button>
+            <button id="voteBtn_Agent_FF" class="vote-btn" onclick="voteForPlayer('Agent FF')">Vote</button>
           </td>
           <td><span id="votes_Agent_FF">0</span></td>
           <td>9:17 - 9:34</td>
@@ -194,12 +198,12 @@
           <td>Match 3</td>
           <td>
             Old Virus 99 
-            <button class="vote-btn" onclick="voteForPlayer('Old Virus 99')">Vote</button>
+            <button id="voteBtn_Old_Virus_99" class="vote-btn" onclick="voteForPlayer('Old Virus 99')">Vote</button>
           </td>
           <td><span id="votes_Old_Virus_99">0</span></td>
           <td>
             Khizar 
-            <button class="vote-btn" onclick="voteForPlayer('Khizar')">Vote</button>
+            <button id="voteBtn_Khizar" class="vote-btn" onclick="voteForPlayer('Khizar')">Vote</button>
           </td>
           <td><span id="votes_Khizar">0</span></td>
           <td>9:34 - 9:51</td>
@@ -209,12 +213,12 @@
           <td>Match 4</td>
           <td>
             OmegaStabler 
-            <button class="vote-btn" onclick="voteForPlayer('OmegaStabler')">Vote</button>
+            <button id="voteBtn_OmegaStabler" class="vote-btn" onclick="voteForPlayer('OmegaStabler')">Vote</button>
           </td>
           <td><span id="votes_OmegaStabler">0</span></td>
           <td>
             Es Qasim 
-            <button class="vote-btn" onclick="voteForPlayer('Es Qasim')">Vote</button>
+            <button id="voteBtn_Es_Qasim" class="vote-btn" onclick="voteForPlayer('Es Qasim')">Vote</button>
           </td>
           <td><span id="votes_Es_Qasim">0</span></td>
           <td>9:51 - 10:08</td>
@@ -230,7 +234,7 @@
     </div>
   </div>
   <script>
-    // Generate a valid element ID for the player by removing special characters.
+    // Generate a valid element ID for the vote count span by removing special characters.
     function getIdFromPlayer(player) {
       return "votes_" + player.replace(/[^a-zA-Z0-9]/g, "_");
     }
@@ -252,20 +256,39 @@
         span.innerText = getVoteCount(player);
       }
     }
+    // Disable all vote buttons.
+    function disableAllVoteButtons() {
+      var buttons = document.querySelectorAll(".vote-btn");
+      buttons.forEach(function(btn) {
+        btn.disabled = true;
+      });
+    }
     // Increase the vote count when a vote button is clicked.
     function voteForPlayer(player) {
+      // Check if the user has already voted (global vote flag)
+      if (localStorage.getItem("voted_once")) {
+        alert("You have already voted!");
+        return;
+      }
       var count = getVoteCount(player);
       count++;
       setVoteCount(player, count);
       updateVoteDisplay(player);
+      // Set global vote flag
+      localStorage.setItem("voted_once", "true");
+      // Disable all vote buttons
+      disableAllVoteButtons();
     }
     // List of players in Round 3.
     var players = ["Old Virus 99", "Khizar", "OmegaStabler", "Es Qasim", "X Ruok.77", "Agent FF", "SyedXRuok", "Bilal"];
-    // On page load, update all vote counts.
+    // On page load, update all vote counts and disable vote buttons if user has already voted.
     window.onload = function() {
       players.forEach(function(player) {
         updateVoteDisplay(player);
       });
+      if (localStorage.getItem("voted_once")) {
+        disableAllVoteButtons();
+      }
     };
   </script>
 </body>
