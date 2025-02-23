@@ -2,271 +2,132 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Solo King's Cup - Round 3 Schedule & Voting</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Duo Conquerors - Round 1 Schedule</title>
   <style>
-    :root {
-      --bg: #121212;             /* Deep black background */
-      --container-bg: #1c1c1c;     /* Slightly lighter black for containers */
-      --text: #e0e0e0;            /* Light gray text */
-      --border: #333;             /* Dark gray borders */
-      --accent: #444;             /* Accent color for hover effects */
-      --button-bg: #222;          /* Button background */
-      --button-hover: #333;       /* Button hover color */
-      --highlight: #fff;          /* Highlight accent (white) */
-    }
     * {
-      box-sizing: border-box;
       margin: 0;
       padding: 0;
+      box-sizing: border-box;
+      font-family: 'Arial', sans-serif;
     }
     body {
-      font-family: 'Arial', sans-serif;
-      background: var(--bg);
-      color: var(--text);
-      line-height: 1.6;
-      padding: 20px;
+      background: linear-gradient(135deg, #1a1a1a, #333333);
+      color: white;
+    }
+    .header {
+      text-align: center;
+      padding: 2rem;
+      background: linear-gradient(45deg, #0a0a0a, #2c3e50);
+      border-bottom: 3px solid #e74c3c;
+    }
+    .tournament-logo {
+      max-width: 200px;
+      margin-bottom: 1rem;
     }
     .container {
       max-width: 1200px;
-      margin: 30px auto;
-      background: var(--container-bg);
-      border-radius: 12px;
-      padding: 30px;
-      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.7);
-      animation: fadeIn 1s ease-in-out;
+      margin: 0 auto;
+      padding: 2rem;
     }
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(10px); }
-      to { opacity: 1; transform: translateY(0); }
+    .schedule-grid {
+      display: grid;
+      gap: 1.5rem;
+      margin-top: 2rem;
     }
-    .logo-container {
-      text-align: center;
-      margin-bottom: 30px;
+    .match-card {
+      background: linear-gradient(135deg, #2a2a2a, #3a3a3a);
+      padding: 1.5rem;
+      border-radius: 10px;
+      border-left: 5px solid #e74c3c;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
     }
-    .logo-container img {
-      max-width: 150px;
-      filter: drop-shadow(0 4px 10px rgba(0, 0, 0, 0.7));
-      transition: transform 0.3s ease;
+    .match-card:hover {
+      transform: scale(1.03);
+      box-shadow: 0 4px 20px rgba(231, 76, 60, 0.5);
     }
-    .logo-container img:hover {
-      transform: scale(1.1);
-      width: 200px;
-      height: 200px;
-    }
-    h1 {
-      text-align: center;
-      font-size: 2.5em;
-      padding: 15px 0;
-      border-bottom: 2px solid var(--highlight);
-      margin-bottom: 30px;
-      text-transform: uppercase;
-      letter-spacing: 2px;
-      color: var(--highlight);
-    }
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      margin-bottom: 30px;
-    }
-    th, td {
-      padding: 15px;
-      text-align: center;
-      border: 1px solid var(--border);
-      transition: background 0.3s;
-    }
-    th {
-      background: var(--bg);
-      color: var(--highlight);
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
-      font-size: 1.1em;
-    }
-    tr:nth-child(even) {
-      background: var(--container-bg);
-    }
-    tr:nth-child(odd) {
-      background: var(--bg);
-    }
-    tr:hover {
-      background: var(--accent);
-    }
-    .vote-btn {
-      background: var(--button-bg);
-      color: var(--text);
-      border: none;
-      padding: 8px 15px;
-      margin-left: 5px;
-      border-radius: 6px;
-      cursor: pointer;
-      font-size: 0.9em;
-      transition: background 0.3s, transform 0.3s;
-      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
-    }
-    .vote-btn:hover {
-      background: var(--button-hover);
-      transform: scale(1.05);
-    }
-    .note {
-      margin-top: 20px;
-      padding: 20px;
-      background: var(--bg);
-      border-left: 5px solid var(--highlight);
-      border-radius: 8px;
+    .match-time {
+      color: #e74c3c;
       font-weight: bold;
-      font-size: 1.1em;
-      position: relative;
+      margin-bottom: 0.5rem;
     }
-    .note::before {
-      content: 'ℹ️';
-      position: absolute;
-      left: 15px;
-      top: 50%;
-      transform: translateY(-50%);
-      font-size: 1.5em;
-      color: var(--highlight);
+    .teams {
+      font-size: 1.2rem;
+      margin: 0.5rem 0;
     }
-    .footer {
-      text-align: center;
-      margin-top: 30px;
-      font-style: italic;
-      font-size: 1em;
-      color: var(--text);
+    .vs {
+      color: #e74c3c;
+      margin: 0 1rem;
     }
-    .footer::before {
-      content: '⏰';
-      margin-right: 10px;
-      font-size: 1.2em;
-      color: var(--highlight);
+    .live-badge {
+      background: #e74c3c;
+      padding: 0.3rem 0.8rem;
+      border-radius: 5px;
+      font-size: 0.9rem;
+      display: inline-block;
+      margin-top: 1rem;
+      text-decoration: none;
+      color: white;
+    }
+    .wildcard-note {
+      background: #34495e;
+      padding: 1.5rem;
+      border-radius: 10px;
+      margin-top: 2rem;
+      line-height: 1.6;
     }
   </style>
 </head>
 <body>
+  <header class="header">
+    <img src="./assest/a-logo-with-the-text-duo-conquerors-leag_PO0Ps6apRoC3mLQbtlKpQw_1WmI4Lv9RXy_BGFwOtuO_Q.jpeg-removebg-preview.png" alt="Tournament Logo" class="tournament-logo">
+    <h1>Duo Conquerors League - Round 1 Schedule</h1>
+  </header>
   <div class="container">
-    <!-- Tournament Logo -->
-    <div class="logo-container">
-      <img src="./assest/a-modern-and-powerful-typographic-logo-f_tYrn1glgSS2ZiZY6a1ZOHA_yQpj_UO5STS8i6L2ol1l8g-removebg-preview.png" alt="Solo King's Cup Logo">
+    <div class="schedule-grid" id="schedule">
+      <!-- Matches will be displayed here -->
     </div>
-    <h1>Solo King's Cup - Round 3 Schedule & Voting</h1>
-    <table>
-      <thead>
-        <tr>
-          <th>Match</th>
-          <th>Player 1</th>
-          <th>Votes</th>
-          <th>Player 2</th>
-          <th>Votes</th>
-          <th>Time</th>
-        </tr>
-      </thead>
-      <tbody>
-        <!-- New Match 1: Previously Match 4 -->
-        <tr>
-          <td>Match 1</td>
-          <td>
-            SyedXRuok 
-            <button class="vote-btn" onclick="voteForPlayer('SyedXRuok')">Vote</button>
-          </td>
-          <td><span id="votes_SyedXRuok">0</span></td>
-          <td>
-            Bilal 
-            <button class="vote-btn" onclick="voteForPlayer('Bilal')">Vote</button>
-          </td>
-          <td><span id="votes_Bilal">0</span></td>
-          <td>9:00 - 9:17</td>
-        </tr>
-        <!-- New Match 2: Previously Match 3 -->
-        <tr>
-          <td>Match 2</td>
-          <td>
-            X Ruok.77 
-            <button class="vote-btn" onclick="voteForPlayer('X Ruok.77')">Vote</button>
-          </td>
-          <td><span id="votes_X_Ruok_77">0</span></td>
-          <td>
-            Agent FF 
-            <button class="vote-btn" onclick="voteForPlayer('Agent FF')">Vote</button>
-          </td>
-          <td><span id="votes_Agent_FF">0</span></td>
-          <td>9:17 - 9:34</td>
-        </tr>
-        <!-- New Match 3: Previously Match 1 -->
-        <tr>
-          <td>Match 3</td>
-          <td>
-            Old Virus 99 
-            <button class="vote-btn" onclick="voteForPlayer('Old Virus 99')">Vote</button>
-          </td>
-          <td><span id="votes_Old_Virus_99">0</span></td>
-          <td>
-            Khizar 
-            <button class="vote-btn" onclick="voteForPlayer('Khizar')">Vote</button>
-          </td>
-          <td><span id="votes_Khizar">0</span></td>
-          <td>9:34 - 9:51</td>
-        </tr>
-        <!-- New Match 4: Previously Match 2 -->
-        <tr>
-          <td>Match 4</td>
-          <td>
-            OmegaStabler 
-            <button class="vote-btn" onclick="voteForPlayer('OmegaStabler')">Vote</button>
-          </td>
-          <td><span id="votes_OmegaStabler">0</span></td>
-          <td>
-            Es Qasim 
-            <button class="vote-btn" onclick="voteForPlayer('Es Qasim')">Vote</button>
-          </td>
-          <td><span id="votes_Es_Qasim">0</span></td>
-          <td>9:51 - 10:08</td>
-        </tr>
-      </tbody>
-    </table>
-    <div class="note">
-      Agar koi player apna round 3 ka match har jata to wo wild card entry submit karwa ke tour may wapis a sakta, 
-      lakin agar koi player is voting session may win kar jata or apna match har bhi jata, phir bhi voting win karny ke wajah se without wild card entry submit karwaye wo tournament may wapis a sakta.
-    </div>
-    <div class="footer">
-      Matches start at 9:00 AM. Har match 17-20 minutes ka hoga.
+    <div class="wildcard-note">
+      <h3>Wild Card Rules</h3>
+      <p>6 Wild Cards available - Losing teams can use ONE wild card to re-enter the tournament by replacing a random team. Wild card matches will be scheduled separately.</p>
     </div>
   </div>
   <script>
-    // Generate a valid element ID for the player by removing special characters.
-    function getIdFromPlayer(player) {
-      return "votes_" + player.replace(/[^a-zA-Z0-9]/g, "_");
-    }
-    // Retrieve the vote count from localStorage; return 0 if not set.
-    function getVoteCount(player) {
-      var key = "vote_" + player;
-      var count = localStorage.getItem(key);
-      return count ? parseInt(count) : 0;
-    }
-    // Save the vote count to localStorage.
-    function setVoteCount(player, count) {
-      var key = "vote_" + player;
-      localStorage.setItem(key, count);
-    }
-    // Update the displayed vote count for a given player.
-    function updateVoteDisplay(player) {
-      var span = document.getElementById(getIdFromPlayer(player));
-      if (span) {
-        span.innerText = getVoteCount(player);
-      }
-    }
-    // Increase the vote count when a vote button is clicked.
-    function voteForPlayer(player) {
-      var count = getVoteCount(player);
-      count++;
-      setVoteCount(player, count);
-      updateVoteDisplay(player);
-    }
-    // List of players in Round 3.
-    var players = ["Old Virus 99", "Khizar", "OmegaStabler", "Es Qasim", "X Ruok.77", "Agent FF", "SyedXRuok", "Bilal"];
-    // On page load, update all vote counts.
-    window.onload = function() {
-      players.forEach(function(player) {
-        updateVoteDisplay(player);
+    const matches = [
+      { team1: "The Stablers", team2: "Old Skööl", time: "9:00 PM" },
+      { team1: "The Stablers X", team2: "Unbeaten duo-az", time: "9:20 PM" },
+      { team1: "Death Shadow Esports", team2: "NXT Elite", time: "9:40 PM" },
+      { team1: "Royal Revela X", team2: "The Heroics", time: "10:00 PM" },
+      { team1: "Team Bunny Force", team2: "Royal Revela", time: "10:20 PM" },
+      { team1: "Real World", team2: "The Rajputs", time: "10:40 PM" },
+      { team1: "Team DS Elite", team2: "NXT Esports", time: "11:00 PM" },
+      { team1: "Doremon legend", team2: "Jod Esports", time: "11:20 PM" }
+    ];
+
+    function generateSchedule() {
+      const scheduleContainer = document.getElementById('schedule');
+      scheduleContainer.innerHTML = ""; // Clear previous content
+
+      matches.forEach((match, index) => {
+        const matchCard = document.createElement('div');
+        matchCard.className = 'match-card';
+        matchCard.innerHTML = `
+          <div class="match-time">Match ${index + 1} • ${match.time}</div>
+          <div class="teams">
+            <span>${match.team1}</span>
+            <span class="vs">VS</span>
+            <span>${match.team2}</span>
+          </div>
+          <a href="https://youtube.com/@GreatStabler/live" target="_blank" class="live-badge">
+            LIVE on GreatStabler
+          </a>
+        `;
+        scheduleContainer.appendChild(matchCard);
       });
-    };
+    }
+
+    // Generate fixed schedule when page loads
+    generateSchedule();
   </script>
 </body>
 </html>
